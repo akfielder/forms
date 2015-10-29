@@ -1,0 +1,151 @@
+.state a {
+	/*First set position relative on the anchor tag to allow us to position elements within it*/
+	position: relative;
+	/*Set display block to get anything inside of the anchor tag to be full height*/
+	display: block;
+}
+
+/*State-full class is what we will make appear on hover, it includes the background colour and text*/
+.state-full {
+	/*opaque background*/
+  background: rgba(0,0,0,1);
+  color: white;
+  cursor: pointer;
+	/*Make the span elements full height*/
+  height: 100%;
+	width: 100%;
+	/*Apply position absolute to position the elements within the divs with position relative*/
+	position: absolute;
+	top: 0;
+  left: 0;
+	/*turn opacity to 0 to hide on hover*/
+	opacity: 0;
+	/*Make sure you add in vendor prefixes for transitions and transform properties*/
+	-webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+
+/*To style up the nested span tags and move text into the middle*/
+span.state-full span {
+  position: absolute;
+	top: 50%;
+	width: 100%;
+	font-size: 22px;
+	margin-top: -14.3px;
+  text-align: center;
+}
+
+/*Make the background and text appear on hover by changing the opacity*/
+.state-full:hover {
+	opacity: 1;
+}
+
+
+#nav
+{
+    /* container */
+}
+    #nav > a
+    {
+        display: none;
+    }
+    #nav li
+    {
+        position: relative;
+    }
+
+    /* first level */
+
+    #nav > ul
+    {
+        height: 3.75em;
+    }
+        #nav > ul > li
+        {
+            width: 10%;
+            height: 100%;
+            float: left;
+        }
+
+    /* second level */
+
+    #nav li ul
+    {
+        display: none;
+        position: absolute;
+        top: 100%;
+    }
+        #nav li:hover ul
+        {
+            display: block;
+        }
+
+
+
+@media only screen and ( max-width: 40em ) /* 640 */
+{
+    #nav
+    {
+        position: relative;
+    }
+        #nav > a
+        {
+        }
+        #nav:not( :target ) > a:first-of-type,
+        #nav:target > a:last-of-type
+        {
+            display: block;
+        }
+
+    /* first level */
+
+    #nav > ul
+    {
+        height: auto;
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+        #nav:target > ul
+        {
+            display: block;
+        }
+        #nav > ul > li
+        {
+            width: 100%;
+            float: none;
+        }
+
+    /* second level */
+
+    #nav li ul
+    {
+        position: static;
+    }
+}
+
+
+<?php
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+    $from = 'From: TangledDemo';
+    $to = 'demo@tangledindesign.com';
+    $subject = 'Hello';
+    $human = $_POST['human'];
+
+    $body = "From: $name\n E-Mail: $email\n Message:\n $message";
+
+    if ($_POST['submit'] && $human == '4') {
+        if (mail ($to, $subject, $body, $from)) {
+	    echo '<p>Your message has been sent!</p>';
+	} else {
+	    echo '<p>Something went wrong, go back and try again!</p>';
+	}
+    } else if ($_POST['submit'] && $human != '4') {
+	echo '<p>You answered the anti-spam question incorrectly!</p>';
+    }
+?>
